@@ -12,10 +12,11 @@
 #import "LoginViewController.h"
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray *tweetsArray;
+@property (strong, nonatomic) NSMutableArray *tweetsArray;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -42,11 +43,12 @@
         if (tweets) {
             /*
             for (NSDictionary *tw in tweets) {
-                NSLog(@"%@", tw);
+                // NSLog(@"%@", tw);
             }
-             */
+            */
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            self.tweetsArray = tweets;
+            
+            self.tweetsArray = [NSMutableArray arrayWithArray:tweets];
             
             [self.tableView reloadData];
             
@@ -73,15 +75,18 @@
     [[APIManager shared] logout];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
 }
-*/
+
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -89,23 +94,7 @@
     
     cell.tweet = self.tweetsArray[indexPath.row];
     
-    cell.nameLabel.text = cell.tweet.user.name;
-    NSString *at = @"@";
-    cell.atLabel.text = [at stringByAppendingString:cell.tweet.user.screenName];
-    cell.tweetLabel.text = cell.tweet.text;
-    cell.dateLabel.text = cell.tweet.createdAtString;
-    
-    NSString *rtcount = [NSString stringWithFormat:@"%i", cell.tweet.retweetCount];
-    [cell.retweetsButton setTitle:rtcount forState:UIControlStateNormal];
-    
-    NSString *fvcount = [NSString stringWithFormat:@"%i", cell.tweet.favoriteCount];
-    [cell.favoritesButton setTitle:fvcount forState:UIControlStateNormal];
-    
-    NSString *URLString = cell.tweet.user.profilePicture;
-    [URLString stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    cell.profileView.image = [UIImage imageWithData:urlData];
+    [cell refreshData];
     
     return cell;
     
@@ -113,6 +102,12 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweetsArray.count;
+}
+
+- (void)didTweet:(nonnull Tweet *)tweet {
+    [self.tweetsArray insertObject:tweet atIndex:0];
+    
+    [self.tableView reloadData];
 }
 
 @end

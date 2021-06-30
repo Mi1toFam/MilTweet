@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *atLabel;
 @property (weak, nonatomic) IBOutlet UIButton *repliesButton;
 
+-(void) refreshData;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -96,14 +96,19 @@
                                             <buttonConfiguration key="configuration" style="plain" title="12">
                                                 <imageReference key="image" image="retweet-icon"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="didTapRetweet:" destination="ySi-f4-uV5" eventType="touchUpInside" id="o13-aY-fN6"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8F-N0-37Q">
-                                            <rect key="frame" x="230" y="91" width="79" height="35"/>
+                                            <rect key="frame" x="234" y="88" width="75" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="39">
                                                 <imageReference key="image" image="favor-icon"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="didTapFavorite:" destination="ySi-f4-uV5" eventType="touchUpInside" id="Nxl-rF-hNE"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@miltogeleta" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGC-Vt-Tfd">
                                             <rect key="frame" x="151" y="13" width="82" height="12"/>
@@ -152,9 +157,9 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="1oA-Cs-iHV">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="1oA-Cs-iHV">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="OYg-nr-dil">
-                                <rect key="frame" x="281" y="10.5" width="78" height="35"/>
+                                <rect key="frame" x="16" y="10.5" width="78" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Logout"/>
@@ -162,6 +167,12 @@
                                     <action selector="didLogout:" destination="Lbl-k5-U4i" eventType="touchUpInside" id="X1m-Kg-1VO"/>
                                 </connections>
                             </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Vk1-B1-Qnm">
+                            <imageReference key="image" image="edit-icon"/>
+                            <connections>
+                                <segue destination="vbZ-8G-FI7" kind="presentation" id="zqQ-ge-dmr"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -171,6 +182,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1660" y="36.431784107946029"/>
+        </scene>
+        <!--Compose View Controller-->
+        <scene sceneID="rNp-r2-Nak">
+            <objects>
+                <viewController id="xSu-gK-ZZW" customClass="ComposeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AAR-KR-iVQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a3a-zk-2di">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="235"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name=".SFNS-Regular" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UX9-43-11Z"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Elt-3f-kRz">
+                        <barButtonItem key="leftBarButtonItem" id="PSO-c2-W5X">
+                            <imageReference key="image" image="close-icon"/>
+                            <connections>
+                                <action selector="cancelTweet:" destination="xSu-gK-ZZW" id="6mM-PX-3dj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="rbB-gC-1Ix">
+                            <connections>
+                                <action selector="sendTweet:" destination="xSu-gK-ZZW" id="giu-co-iBh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="composeView" destination="a3a-zk-2di" id="AQ1-fO-GtM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZNK-is-cbY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3239" y="36"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WUT-Ke-VeR">
@@ -190,13 +242,36 @@
             </objects>
             <point key="canvasLocation" x="860" y="36.431784107946029"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JGs-Ei-p7C">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vbZ-8G-FI7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zdv-pm-gMY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xSu-gK-ZZW" kind="relationship" relationship="rootViewController" id="cKz-yb-cL2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ciD-eH-sy2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2455" y="37"/>
+        </scene>
     </scenes>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
+        <image name="close-icon" width="26" height="24"/>
+        <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
         <image name="message-icon" width="30" height="30"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

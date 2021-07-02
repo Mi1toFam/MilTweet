@@ -56,6 +56,10 @@ Scrolling through timeline and refreshing timeline.
 
 ![miltweet-scroll](https://user-images.githubusercontent.com/65626248/124205767-ed484300-daaf-11eb-9c45-f914da736e94.gif)
 
+Using AutoLayout to maintain relatize tweet size for iPhone 7 and flipped views.
+
+![miltweet-autolayout](https://user-images.githubusercontent.com/65626248/124312229-f7fce980-db3c-11eb-801d-3149bff0d160.gif)
+
 Composing a new tweet.
 
 ![miltweet-compose](https://user-images.githubusercontent.com/65626248/124205855-27194980-dab0-11eb-8864-b97053ba4413.gif)

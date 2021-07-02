@@ -21,11 +21,13 @@
 
     // Configure the view for the selected state
 }
+
 - (IBAction)didTapFavorite:(id)sender {
     // Update the local tweet model
     if (self.tweet.favorited == YES) {
         self.tweet.favoriteCount -= 1;
         self.tweet.favorited = NO;
+        [self.favoritesButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
         // Send a POST request to the POST unfavorite
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
@@ -39,6 +41,7 @@
     else {
         self.tweet.favoriteCount += 1;
         self.tweet.favorited = YES;
+        [self.favoritesButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
         // Send a POST request to the POST favorite
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
@@ -52,13 +55,14 @@
     
     // Update cell UI
     [self refreshData];
-    
 }
+
 - (IBAction)didTapRetweet:(id)sender {
     // Update the local tweet model
     if (self.tweet.retweeted == YES) {
         self.tweet.retweetCount -= 1;
         self.tweet.retweeted = NO;
+        [self.retweetsButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
         // Send a POST request to the POST unretweet
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
@@ -72,6 +76,7 @@
     else {
         self.tweet.retweetCount += 1;
         self.tweet.retweeted = YES;
+        [self.retweetsButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
         // Send a POST request to the POST favorite
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
@@ -85,7 +90,6 @@
     
     // Update cell UI
     [self refreshData];
-    
 }
 
 -(void)refreshData {
